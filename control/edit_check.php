@@ -2,7 +2,7 @@
 
 require_once("../model/crudop.php");
 $obj = new users();
-if(isset($_POST["save"]))
+if(!isset($_POST["save"]))
 {
     
     echo "something wrong!";
@@ -26,7 +26,12 @@ if(move_uploaded_file($_FILES['profilePic']['tmp_name'], $file_dir))
         "photo"=>$fileName
     ];
     
-    $data = $obj->update_user($userinfo);
+    $result = $obj->update_user($userinfo);
+
+    if($result==true)
+    {
+    header("location:../views/alluser.php");
+    }
 }
 
 else{

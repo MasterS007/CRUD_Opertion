@@ -87,7 +87,7 @@ require_once("../control/display.php");
                 style="text-align: center;"
                 />
                 </label>
-                </div>
+          </div>
 
                 <input type="hidden" name="id" value="<?= $data["id"]?>">
             

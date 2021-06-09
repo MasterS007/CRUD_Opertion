@@ -1,6 +1,6 @@
 <?php
  
-include "crudop.php";
+require_once("../model/crudop.php");
 
 $obj = new users();
 
@@ -12,19 +12,23 @@ if(!isset($_POST["submit"])){
 //print_r($_FILES);
 
 $fileName=$_FILES['profilePic']['name']; 
-$file_dir="asset/".basename($fileName);
+$file_dir="../asset/".basename($fileName);
 
 
 
 if(move_uploaded_file($_FILES['profilePic']['tmp_name'], $file_dir))
 {
-    $obj->insert_data($fileName);
+    $result = $obj->insert_data($fileName);
+
+    if($result==TRUE) 
+        header("location:../views/alluser.php");
+      
 }
 
-else{
+else echo "no photo uploaded";
 
-    echo "no photo uploaded";
-}
+    
+
 
 
 

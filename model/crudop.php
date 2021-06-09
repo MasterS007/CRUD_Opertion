@@ -87,13 +87,13 @@ class users{
 
             $sql = $this->conn->query($query);
 
-            if($sql==TRUE){
+            if(!$sql==TRUE){
                 
-                echo "Update successful";
-            }
-            else{
                 echo "Error: " . $sql . "<br>" . $this->conn->error;
+                return false;
             }
+            
+            return true;
 
         }
 
