@@ -79,9 +79,10 @@ class users{
 
         }
 
-        function update_user($id)
+        function update_user($users)
         {   
-            $query = "UPDATE users SET first_name= WHERE id = {$id}";
+            $query = "UPDATE users SET first_name='{$users['fname']}',  
+                    WHERE id = {$users['id']}";
 
         }
 
