@@ -92,7 +92,7 @@
                 <td><?=$data[$d]['age']?></td>
                 <td><img src="../asset/<?=$data[$d]['photo']?>" height="50px" width="60px" style="align-items: center;"></td>
                 <td><a href="edit.php?id=<?=$data[$d]['id']?>"><button type="button" class="btn btn-success">Edit</button></a> 
-                <a href="../control/delete_check.php?id=<?=$data[$d]['id']?>"><button type="button" class="btn btn-danger">Delete</button></a>
+                <a href="../control/delete_check.php?id=<?=$data[$d]['id']?>" ><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button></a>
               </td>
               </tr>
           

@@ -23,13 +23,13 @@ class users{
         return $this->conn;
     }
 
-    function insert_data($fileName)
+    function insert_data($users)
     {
-        $fname = $this->conn->real_escape_string($_POST['fname']);
-        $lname = $this->conn->real_escape_string($_POST['lname']);
-        $age = $this->conn->real_escape_string($_POST['age']);
-        $gender = $this->conn->real_escape_string($_POST['gender']);
-        $photo = $this->conn->real_escape_string($fileName);
+        $fname = $this->conn->real_escape_string($users['fname']);
+        $lname = $this->conn->real_escape_string($users['lname']);
+        $age = $this->conn->real_escape_string($users['age']);
+        $gender = $this->conn->real_escape_string($users['gender']);
+        $photo = $this->conn->real_escape_string($users['fileName']);
        //print_r($_FILES);
     
         
@@ -40,13 +40,12 @@ class users{
 
             $sql = $this->conn->query($query);
 
-            if($sql==TRUE){
+            if(!$sql==TRUE){
                 
-                echo "insert successful";
-            }
-            else{
                 echo "Error: " . $sql . "<br>" . $this->conn->error;
+                return false;
             }
+            return true;
         }
 
         function display_alldata()
@@ -102,7 +101,7 @@ class users{
             $query ="DELETE FROM users WHERE id = '{$id}' ";
             $sql = $this->conn->query($query);
 
-            if($sql =!TRUE)
+            if(!$sql==TRUE)
             {
                 echo "Error: " . $sql . "<br>" . $this->conn->error;
                 return false;

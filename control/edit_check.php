@@ -30,7 +30,7 @@ if(move_uploaded_file($_FILES['profilePic']['tmp_name'], $file_dir))
 
     if($result==true)
     {
-    header("location:../views/alluser.php");
+    header("location:../views/alluser.php?Message="."Update Successful");
     }
 }
 
