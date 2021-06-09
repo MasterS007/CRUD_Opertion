@@ -75,7 +75,7 @@ require_once("../control/display.php");
          <form  action="../control/edit_check.php" method="POST" enctype="multipart/form-data">
          <div class="col-lg-20 text-xs-center justify-content-center">
                
-                <?='<img src="data:../asset/;base64,'.base64_encode( $data['photo'] ).'"'?>
+                <img src="../asset/<?=$data['photo']?>" height="50px" width="50px">
                 
                 <h6>Upload a different photo</h6>
                 <label class="custom-file" style="text-align: center;">
