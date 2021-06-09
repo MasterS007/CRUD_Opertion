@@ -24,6 +24,8 @@ require_once("../control/display.php");
   </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
   </script>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../js/edit.js"></script>
 </head>
 <body>
 
@@ -72,7 +74,7 @@ require_once("../control/display.php");
             <br>
         </div>
         <div class="col-lg-8 push-lg-4 personal-info">
-         <form  action="../control/edit_check.php" method="POST" enctype="multipart/form-data">
+         <form  action="../control/edit_check.php" method="POST" enctype="multipart/form-data" >
          <div class="col-lg-20 text-xs-center justify-content-center">
                
                 <img src="../asset/<?=$data['photo']?>" height="50px" width="50px">
@@ -94,14 +96,16 @@ require_once("../control/display.php");
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname"/>
+                        <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" onkeyup="fname_wrong_pattern()" onblur="fmsg_remove()"/>
+                        <i id="fmsg" style="color: red;"></i>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
                     <div class="col-lg-9">
-                        <input class="form-control" type="text" value="<?=$data["last_name"]?>" name="lname"/>
+                        <input class="form-control" type="text" value="<?=$data["last_name"]?>" name="lname" onkeyup="lname_wrong_pattern()" onblur="lmsg_remove()"/>
+                        <i id="lmsg" style="color: red;"></i>
                     </div>
                 </div>
 
