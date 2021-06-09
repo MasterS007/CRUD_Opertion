@@ -81,8 +81,36 @@ class users{
 
         function update_user($users)
         {   
-            $query = "UPDATE users SET first_name='{$users['fname']}',  
-                    WHERE id = {$users['id']}";
+            $query ="UPDATE users SET first_name='{$users['fname']}', last_name='{$users['lname']}', 
+                     age='{$users['age']}', gender='{$users['gender']}', photo='{$users['photo']}'
+                     WHERE id = {$users['id']}";
+
+            $sql = $this->conn->query($query);
+
+            if($sql==TRUE){
+                
+                echo "Update successful";
+            }
+            else{
+                echo "Error: " . $sql . "<br>" . $this->conn->error;
+            }
+
+        }
+
+        function delete_user($id){
+
+            $query ="DELETE FROM users WHERE id = '{$id}' ";
+            $sql = $this->conn->query($query);
+
+            if($sql =!TRUE)
+            {
+                echo "Error: " . $sql . "<br>" . $this->conn->error;
+                return false;
+            }
+
+            return true;
+           
+
 
         }
 
