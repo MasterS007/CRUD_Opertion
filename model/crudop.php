@@ -72,17 +72,29 @@ class users{
             $row = mysqli_fetch_assoc($result);
 
             return $row;
-
-
-
-
         }
 
         function update_user($users)
         {   
             $query ="UPDATE users SET first_name='{$users['fname']}', last_name='{$users['lname']}', 
-                     age='{$users['age']}', gender='{$users['gender']}', photo='{$users['photo']}'
+                     age='{$users['age']}', gender='{$users['gender']}'
                      WHERE id = {$users['id']}";
+
+            $sql = $this->conn->query($query);
+
+            if(!$sql==TRUE){
+                
+                echo "Error: " . $sql . "<br>" . $this->conn->error;
+                return false;
+            }
+            
+            return true;
+
+        }
+
+        function profilepic_change($user_pic){
+            $query ="UPDATE users SET photo='{$user_pic['photo']}'
+                     WHERE id = {$user_pic['id']}";
 
             $sql = $this->conn->query($query);
 

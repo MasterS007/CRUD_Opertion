@@ -64,6 +64,7 @@
     <div class="col-lg-8 push-lg-4 personal-info">
     <form action="control/check.php" method="POST" enctype="multipart/form-data">
     <div class="form-group row">
+                    <h3 id="nullmsg" style="color: red;"></h3>
                     <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text"  name="fname"/>

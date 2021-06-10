@@ -24,7 +24,6 @@ require_once("../control/display.php");
   </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
   </script>
-  <script src="vendor/jquery/dist/jquery.min.js"></script>
   <script src="../js/edit.js"></script>
 </head>
 <body>
@@ -72,79 +71,87 @@ require_once("../control/display.php");
             <h2>Edit Profile</h2>
             <br>
             <br>
+            <h3 id="nullmsg" style="color: red;"></h3>
         </div>
-        <div class="col-lg-8 push-lg-4 personal-info">
-         <form  action="../control/edit_check.php" method="POST" enctype="multipart/form-data" >
-         <div class="col-lg-20 text-xs-center justify-content-center">
-               
-                <img src="../asset/<?=$data['photo']?>" height="50px" width="50px">
+        <div>
+        <form action="../control/picupload_check.php" method="POST" enctype="multipart/form-data">
+
+        <div class="col-lg-20 text-xs-center justify-content-center">
+              <img src="../asset/<?=$data['photo']?>" height="50px" width="50px">
                 
                 <h6>Upload a different photo</h6>
                 <label class="custom-file" style="text-align: center;">
                 <input
                 type="file"
                 class="form-control-file"
+                value="<?=$data["photo"]?>"
+                id="Pic"
                 name="profilePic"
-                id="profilePic"
                 style="text-align: center;"
                 />
                 </label>
-          </div>
-
+                </div>
                 <input type="hidden" name="id" value="<?= $data["id"]?>">
-            
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">First Name</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" onkeyup="fname_wrong_pattern()" onblur="fmsg_remove()"/>
-                        <i id="fmsg" style="color: red;"></i>
-                    </div>
+                <input type="submit" name="upload" class="btn btn-primary btn-sm" value="Upload Photo"/>
+        </form></div>
+        <div class="col-lg-8 push-lg-4 personal-info">
+        
+         <form  action="" method="POST"  >
+              
+                <input type="hidden" name="id" value="<?= $data["id"]?>">
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">First Name</label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" onblur= "fmsg_remove();"  onkeyup="fname_wrong_pattern();" />
+                    <i id="fmsg" style="color: red;"></i>
                 </div>
+            </div>
 
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="text" value="<?=$data["last_name"]?>" name="lname" onkeyup="lname_wrong_pattern()" onblur="lmsg_remove()"/>
-                        <i id="lmsg" style="color: red;"></i>
-                    </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text"  value="<?=$data["last_name"]?>" name="lname" onblur="lmsg_remove();" onkeyup="lname_wrong_pattern();" />
+                    <i id="lmsg" style="color: red;"></i>
                 </div>
+            </div>
 
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label">Age</label>
-                    <div class="col-lg-9">
-                        <input class="form-control" type="number" value="<?=$data["age"]?>" name="age"/>
-                    </div>
-                </div>
-                <div class="form-group row form-check">
-                    <p style="margin-left:-8px;">Gender</p>
-                    <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="male"
-                    value="male"
-                    checked
-                    />
-                    <label class="form-check-label" for="exampleRadios1"> Male </label>
-                </div>
-                <div class="form-group row form-check">
-                    <input
-                    class="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="female"
-                    value="female"
-                    />
-                    <label class="form-check-label" for="exampleRadios2"> Female </label>
-                </div>
-                
-                <div class="form-group row">
-                    <label class="col-lg-3 col-form-label form-control-label"></label>
-                    <div class="col-lg-9">
-                        <input type="reset" class="btn btn-secondary" value="Cancel" />
-                        <input type="submit" name="save"  class="btn btn-primary" value="Save Changes" />
-                    </div>
-                </div>
+              <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">Age</label>
+                  <div class="col-lg-9">
+                      <input class="form-control" type="number" value="<?=$data["age"]?>" name="age" onkeyup="ageEmpty();" onblur="agenotempty();"/>
+                      <i id="amsg" style="color: red;"></i>
+                  </div>
+              </div>
+              <div class="form-group row form-check">
+                  <p style="margin-left:-8px;">Gender</p>
+                  <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="male"
+                  value="male"
+                  checked
+                  />
+                  <label class="form-check-label" for="exampleRadios1"> Male </label>
+              </div>
+              <div class="form-group row form-check">
+                  <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="female"
+                  value="female"
+                  />
+                  <label class="form-check-label" for="exampleRadios2"> Female </label>
+              </div>
+              
+              <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                  <div class="col-lg-9">
+                      <input type="reset" class="btn btn-secondary" value="Cancel" />
+                      <input type="submit" name="save"  class="btn btn-primary" value="Save Changes" onclick="forPostForm()"/>
+                  </div>
+              </div>
             </form>
         </div>
        
