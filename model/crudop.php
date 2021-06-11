@@ -18,8 +18,7 @@ class users{
         return $this->conn;
     }
 
-    function insert_data($users)
-    {
+    function insert_data($users){
         $fname = $this->conn->real_escape_string($users['fname']);
         $lname = $this->conn->real_escape_string($users['lname']);
         $age = $this->conn->real_escape_string($users['age']);
@@ -31,10 +30,24 @@ class users{
 
             $sql = $this->conn->query($query);
             if(!$sql==TRUE){
-                echo "Error: " . $sql . "<br>" . $this->conn->error;
+                //echo "Error: " . $sql . "<br>" . $this->conn->error;
                 return false;
             }
             return true;
+        }
+        
+        function set_insertError($msg){
+            if(empty($msg)){
+                $msg = ""; 
+            }
+            $_SESSION['insmessage']=$msg;
+
+        }
+        function show_insertError(){
+            if(isset($_SESSION['insmessage'])){
+                echo $_SESSION['insmessage'];
+                unset($_SESSION['insmessage']);
+            }
         }
 
         function display_alldata(){   
@@ -88,13 +101,13 @@ class users{
 
         function delete_user($id){
             $query ="DELETE FROM users WHERE id = '{$id}' ";
-            
+
             $sql = $this->conn->query($query);
             if(!$sql==TRUE){
                 echo "Error: " . $sql . "<br>" . $this->conn->error;
                 return false;
             }
-               return true;
+            return true;
         }
 
         function set_message($fmsg, $lmsg, $amsg ){
@@ -105,13 +118,29 @@ class users{
                 $lmsg = ""; //for last name
             }
             if(empty($amsg)){
-                $lmsg = ""; // for age
+                $amsg = ""; // for age
             }
             $_SESSION['fmessage']=$fmsg;
             $_SESSION['lmessage']=$lmsg;
             $_SESSION['amessage']=$amsg;
         }
 
+        function set_photoMessage($pmsg){
+            if(empty($pmsg)){
+                $pmsg = ""; //for photo
+            }
+            $_SESSION['pmessage']=$pmsg;
+        }
+
+        //for photo error
+        function show_pmessage(){
+            if(isset($_SESSION['pmessage'])){
+                echo $_SESSION['pmessage'];
+                unset($_SESSION['pmessage']);
+            }
+        }
+
+        //for first name error
         function show_fmessage(){
             if(isset($_SESSION['fmessage'])){
                 echo $_SESSION['fmessage'];
@@ -119,6 +148,7 @@ class users{
             }
         }
 
+        //for last name error
         function show_lmessage(){
             if(isset($_SESSION['lmessage'])){
                 echo $_SESSION['lmessage'];
@@ -126,6 +156,7 @@ class users{
             }
         }
 
+        //for age error
         function show_amessage(){
             if(isset($_SESSION['amessage'])){
                 echo $_SESSION['amessage'];

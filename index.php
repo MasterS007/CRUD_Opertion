@@ -1,4 +1,6 @@
 <?php
+  require_once("model/crudop.php");
+  $obj = new users();
 ?>
 
 <!DOCTYPE html>
@@ -59,8 +61,12 @@
         <div class="col-lg-10 text-lg-center">
             <h2>Add User</h2>
             <br>
-            <br>
         </div>
+    <div class="alert">
+    <?php 
+      $obj->show_insertError();
+    ?>
+    </div>
     <div class="col-lg-8 push-lg-4 personal-info">
     <form action="control/check.php" method="POST" enctype="multipart/form-data">
     <div class="form-group row">
@@ -68,6 +74,7 @@
                     <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text"  name="fname"/>
+                        <i id="fmsg" style="color: red;"><?php $obj->show_fmessage();?></i>
                     </div>
                 </div>
 
@@ -75,6 +82,7 @@
                     <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="text"  name="lname"/>
+                        <i id="lmsg" style="color: red;"><?php $obj->show_lmessage();?></i>
                     </div>
                 </div>
 
@@ -82,6 +90,7 @@
                     <label class="col-lg-3 col-form-label form-control-label">Age</label>
                     <div class="col-lg-9">
                         <input class="form-control" type="number" name="age"/>
+                        <i id="amsg" style="color: red;"><?php $obj->show_amessage();?></i>
                     </div>
                 </div>
                 <div class="form-group row form-check">
@@ -118,6 +127,7 @@
           name="profilePic"
           id="profilePic"
         />
+        <i id="pmsg" style="color: red;"><?php $obj->show_pmessage();?></i>
       </div>
       <button type="submit" name="submit" class="btn btn-primary">Add</button>
       <button type="reset" name="reset" class="btn btn-primary">Cancel</button>

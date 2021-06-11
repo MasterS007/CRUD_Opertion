@@ -1,86 +1,62 @@
 <?php
 require_once("../model/crudop.php");
 $obj = new users();
-$flag=true;
+$anullflag = true;
+$fflag = true;
+$lflag = true;
 $pflag = true;
-if(!isset($_POST["submit"])){
+$ferrorMsg = "";
+$lerrorMsg = "";
+$ageError = "";
+$photError = "";
 
-    echo "something wrong!";
-}
+if(isset($_POST["submit"])){
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    $fileName=$_FILES['profilePic']['name']; 
+    $file_dir="../asset/".basename($fileName);
 
-$fname = $_POST['fname'];
-$lname = $_POST['lname'];
-$age = $_POST['age'];
-$gender = $_POST['gender'];
-$fileName=$_FILES['profilePic']['name']; 
-$file_dir="../asset/".basename($fileName);
-
-//$d = !preg_match("/^[a-zA-Z-' ]*$/", $fname);
-
-//echo $d;
-
-if(empty($fname)||empty($lname)||empty($age)||empty($gender)||empty($fileName)){
-
-    echo "null submission";
-    $flag = false;
-
-}
-
-else if(!preg_match("/^[a-zA-Z-' ]*$/",$fname)||!preg_match("/^[a-zA-Z-' ]*$/", $lname)
-){
-
-    echo "Name is in wrong pattern";
-    $flag = false;
-
-   
-}
-
-else
-    $flag = true;
-
-
-//print_r($_FILES);
-
-if(!move_uploaded_file($_FILES['profilePic']['tmp_name'], $file_dir))
-{
-   $pflag= false;
-   echo "</br> no photo uploaded";
+    if(empty($age) || empty($gender)){
+        $anullflag = false; //age or gender null
+        $ageError = "Field cannot be empty!";
+        $obj->set_message($ferrorMsg, $lerrorMsg, $ageError );
+        header("location:../index.php?");
+    }
+    if(!ctype_alpha($fname) || empty($fname) ){
+        $fflag = false;   
+        $ferrorMsg = "Name is not in pattern or Field is empty!";
+        $obj->set_message($ferrorMsg, $lerrorMsg, $ageError );
+        header("location:../index.php?");
+    }
+    if(!ctype_alpha($lname) || empty($lname) ){
+        $lflag = false;
+        $lerrorMsg = "Name is not in pattern or Field is empty!";
+        $obj->set_message($ferrorMsg, $lerrorMsg, $ageError );
+        header("location:../index.php?");
+    }
+    if(!move_uploaded_file($_FILES['profilePic']['tmp_name'], $file_dir)){
+        $pflag= false;
+        $photError = "no photo has been uploaded";
+        $obj->set_photoMessage($photError);
+        header("location:../index.php?"); 
+    }
+    if($fflag == true && $lflag == true && $anullflag == true && $pflag == true){
+        $users =[
+            "fname" => $fname,
+            "lname" => $lname,
+            "age" => $age,
+            "gender" => $gender,
+            "filename" => $filename
+        ];
+        $result = $obj->insert_data($users);
     
-}
-
-if($flag == true && $pflag == true){
-
-    $users =[
-        "fname" => $fname,
-        "lname" => $lname,
-        "age" => $age,
-        "gender" => $gender,
-        "filename" => $filename
-
-    ];
-    $result = $obj->insert_data($users);
-
-    if($result==true)
+        if($result!=true){
+            $msg = "Insert Unsucessfull!";
+            $obj->set_insertError( $msg);
+            header("location: ../index.php");
+        }
         header("location:../views/alluser.php?Message="."User successfully added");
-    
-    else
-        echo "failed to insert";
-
+    }
 }
-
-
-        
-
-    
-
-
-
-
-
-
-
-
-
-        
-
-?>
