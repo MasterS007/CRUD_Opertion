@@ -1,13 +1,8 @@
 <?php
-
 require_once("../control/display.php");
+
     $id = $_REQUEST["id"];
-    $data = $obj->display_userby_id($id);
-
-   // print_r($data);
-
-   // echo $id;
-
+    $data = $obj->display_userby_id($id); 
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +19,6 @@ require_once("../control/display.php");
   </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous">
   </script>
-  <script src="../js/edit.js"></script>
 </head>
 <body>
 
@@ -66,7 +60,6 @@ require_once("../control/display.php");
 </br>
 <div class="container border" >
         <!-- edit form column -->
-
         <div class="col-lg-10 text-lg-center">
             <h2>Edit Profile</h2>
             <br>
@@ -74,7 +67,7 @@ require_once("../control/display.php");
             <h3 id="nullmsg" style="color: red;"></h3>
         </div>
         <div>
-        <form action="../control/picupload_check.php" method="POST" enctype="multipart/form-data">
+  <form action="../control/picupload_check.php" method="POST" enctype="multipart/form-data">
 
         <div class="col-lg-20 text-xs-center justify-content-center">
               <img src="../asset/<?=$data['photo']?>" height="50px" width="50px">
@@ -96,29 +89,35 @@ require_once("../control/display.php");
         </form></div>
         <div class="col-lg-8 push-lg-4 personal-info">
         
-         <form  action="" method="POST"  >
+         <form action="../control/edit_check.php" method="POST"  >
               
-                <input type="hidden" name="id" value="<?= $data["id"]?>">
+                <input type="hidden" name="id" value="<?= $data["id"]?>" required>
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" onblur= "fmsg_remove();"  onkeyup="fname_wrong_pattern();" />
-                    <i id="fmsg" style="color: red;"></i>
+                    <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" required/>
+                    <i id="" style="color: red;">
+                    <?php
+                        include "../control/edit_check.php";
+                        echo $patternError;
+                    ?>
+                    
+                    </i>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text"  value="<?=$data["last_name"]?>" name="lname" onblur="lmsg_remove();" onkeyup="lname_wrong_pattern();" />
-                    <i id="lmsg" style="color: red;"></i>
+                    <input class="form-control" type="text"  value="<?=$data["last_name"]?>" name="lname" required  />
+                    <i class="error" id="lmsg" style="color: red;"></i>
                 </div>
             </div>
 
               <div class="form-group row">
                   <label class="col-lg-3 col-form-label form-control-label">Age</label>
                   <div class="col-lg-9">
-                      <input class="form-control" type="number" value="<?=$data["age"]?>" name="age" onkeyup="ageEmpty();" onblur="agenotempty();"/>
+                      <input class="form-control" type="number" value="<?=$data["age"]?>" name="age" required/>
                       <i id="amsg" style="color: red;"></i>
                   </div>
               </div>
@@ -149,12 +148,11 @@ require_once("../control/display.php");
                   <label class="col-lg-3 col-form-label form-control-label"></label>
                   <div class="col-lg-9">
                       <input type="reset" class="btn btn-secondary" value="Cancel" />
-                      <input type="submit" name="save"  class="btn btn-primary" value="Save Changes" onclick="forPostForm()"/>
+                      <input type="submit" name="save"  class="btn btn-primary" value="Save Changes"/>
                   </div>
               </div>
             </form>
-        </div>
-       
+        </div>     
 </div>
 </body>
 </html>
