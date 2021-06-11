@@ -63,7 +63,6 @@
     <div class="col-5">
     <h2>Users Information</h2>
     </div>
-      
     <table class="table" border="2">
         <thead>
           <tr>

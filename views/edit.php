@@ -1,10 +1,8 @@
 <?php
 require_once("../control/display.php");
-
     $id = $_REQUEST["id"];
     $data = $obj->display_userby_id($id); 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,36 +87,29 @@ require_once("../control/display.php");
         </form></div>
         <div class="col-lg-8 push-lg-4 personal-info">
         
-         <form action="../control/edit_check.php" method="POST"  >
-              
-                <input type="hidden" name="id" value="<?= $data["id"]?>" required>
+         <form action="../control/useredit_check.php" method="POST"  >
+            <input type="hidden" name="id" value="<?= $data["id"]?>">
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">First Name</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" required/>
-                    <i id="" style="color: red;">
-                    <?php
-                        include "../control/edit_check.php";
-                        echo $patternError;
-                    ?>
-                    
-                    </i>
+                    <input class="form-control" type="text" value="<?=$data["first_name"]?>" name="fname" require = "required"/>
+                        <i id="fmsg" style="color: red;"><?php $obj->show_fmessage();?></i>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Last Name</label>
                 <div class="col-lg-9">
-                    <input class="form-control" type="text"  value="<?=$data["last_name"]?>" name="lname" required  />
-                    <i class="error" id="lmsg" style="color: red;"></i>
+                    <input class="form-control" type="text"  value="<?=$data["last_name"]?>" name="lname" require = "required"  />
+                    <i id="lmsg" style="color: red;"><?php $obj->show_lmessage();?></i>
                 </div>
             </div>
 
               <div class="form-group row">
                   <label class="col-lg-3 col-form-label form-control-label">Age</label>
                   <div class="col-lg-9">
-                      <input class="form-control" type="number" value="<?=$data["age"]?>" name="age" required/>
-                      <i id="amsg" style="color: red;"></i>
+                      <input class="form-control" type="number" value="<?=$data["age"]?>" name="age" require = "required"/>
+                      <i id="amsg" style="color: red;"><?php $obj->show_amessage();?></i>
                   </div>
               </div>
               <div class="form-group row form-check">
